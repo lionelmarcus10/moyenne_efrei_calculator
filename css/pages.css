@@ -12,12 +12,10 @@
 body{
     margin: 0;
     padding: 0;
+    font-family: "Arial"; 
 }
 footer {
     padding-block: 1rem;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
 }
 footer p{
     text-align: center;
@@ -134,13 +132,24 @@ a{
 .color-secondary{
     color: var(--secondary_color);
 }
+.color-main{
+    color: var(--main_color);
+}
 
 .bg-main{
     background-color: var(--main_color);
 }
 
-
-
+.feature{
+    display: grid; 
+    grid-template-columns: repeat(3, minmax(0, 1fr)); 
+    gap: 10rem;
+    padding-top: 7rem;
+    font-weight: bold;
+}
+.feature p {
+    color: var(--ternary_color);
+}
 
 /* 
     - media queries navbar : 1024, 768,
