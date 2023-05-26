@@ -1,5 +1,6 @@
 .CTA_calcul{
     border-bottom: solid 3px var(--secondary_color);
+    width: 55%;
 }
 
 .school_name{
@@ -121,4 +122,72 @@
 
 .font-white{
     color: white;
+}
+
+/* rendre responsive la section 1 */ 
+
+@media screen and (max-width: 1078px){
+    .CTA_calcul{
+        width: 20%;
+    }
+}
+
+@media screen and (max-width: 853px){
+    .box1{
+        padding-left: 0;
+        
+    }
+    
+    
+}
+
+@media screen and (max-width: 746px){
+    .big_CTA{
+        font-size: 3.5rem;
+    }
+    
+}
+
+@media screen and (max-width: 665px){
+    .big_CTA{
+        font-size: 3rem;
+    }
+    
+}
+
+@media screen and (max-width: 552px){
+    .big_CTA{
+        font-size: 2.5rem;
+    }
+    
+}
+
+@media screen and (max-width: 475px){
+    .big_CTA{
+        font-size: 2.2rem;
+    }
+    
+}
+
+@media screen and (max-width: 450px){
+    .big_CTA{
+        font-size: 1.7rem;
+    }
+    .box2 >*{
+        margin-inline: auto;
+    }
+    
+}
+
+@media(max-width:450px) and  (min-width:385px){
+    .container_custom{
+        padding-inline: 0.5;
+    }
+    .big_CTA{
+        font-size: 2rem;
+    }
+    .second_section{
+            display: block;
+            
+    }
 }
