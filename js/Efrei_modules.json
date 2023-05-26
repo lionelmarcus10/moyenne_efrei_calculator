@@ -1,0 +1,156 @@
+{
+    "semestre 4": {
+      "Formation générale": {
+        "Dissertation et Rhétorique": {
+          "CE": 0.2,
+          "DE": 0.5,
+          "Projet": 0.3
+        },
+        "Economie": {
+          "DE": 0.7,
+          "NOTE": 0.3
+        },
+        "English 4 - Preparation for the Study Abroad Program": {
+          "CE": 0.2,
+          "CO": 0.2,
+          "DE": 0.4,
+          "TD20": 0.2
+        },
+        "Learning XP": {
+          "NoTE": 1
+        }
+      },
+      "UE - Informatique génnérale": {
+        "Introduction aux Bases de Données": {
+          "DE": 0.6,
+          "TD": 0.2,
+          "TP": 0.2
+        },
+        "Programmation Oriente Objet en java": {
+          "DE": 0.6,
+          "TD": 0.2,
+          "TP": 0.2
+        },
+        "Programmation Web": {
+          "DE": 0.5,
+          "¨PRJ": 0.3,
+          "TP": 0.2
+        }
+      },
+      "UE - Mathématiques": {
+        "Analyse de données": {
+          "CE": 0.4,
+          "DE": 0.6
+        },
+        "Automates finis et expressions rationnelles": {
+          "DE": 0.4,
+          "PRJ": 0.4,
+          "TD": 0.2
+        },
+        "Modélisation mathématique": {
+          "CTP": 0.2,
+          "DE": 0.6,
+          "PRJ": 0.2
+        }
+      },
+      "UE -Physique et électronique": {
+        "Propagation électromgnétique": {
+          "DE": 0.6,
+          "TAI": 0.1,
+          "TD": 0.3
+        },
+        "Systèmes de transmission": {
+          "CTD": 0.2,
+          "DE": 0.6,
+          "PRJ": 0.2,
+          "TP": 0
+        },
+        "Thermodynamique": {
+          "DE": 0.6,
+          "TAI": 0.1,
+          "TD": 0.3
+        }
+      },
+      "UE -Projet Transverse": {
+        "Projet transverse L2": {
+          "PRJ": 1
+        }
+      },
+      "UE -Stage L2": {
+        "Stage commercial": {
+          "": 2
+        }
+      }
+    },
+    "semestre 3": {
+      "UE -Formation générale": {
+        "Dissertation et critique d'un essai": {
+          "CE": 0.2,
+          "DE": 0.5,
+          "PRJ": 0.3
+        },
+        "Englhish 3 - Scientific and Technical English": {
+          "CE": 0.2,
+          "CO": 0.2,
+          "DE": 0.4,
+          "TD20": 0.2
+        },
+        "Reading and Speaking": {
+          "CE": 0.3,
+          "DE": 0.7
+        }
+      },
+      "UE -Informatique générale": {
+        "Introduction à la Programmation": {
+          "DE": 0.5,
+          "TP": 0.5
+        },
+        "Programmation Structurée": {
+          "DE": 0.5,
+          "TD": 0.2,
+          "TP": 0.3
+        },
+        "Algorithmique": {
+          "DE": 0.5,
+          "TD": 0.2,
+          "TP": 0.3
+        }
+      },
+      "UE -Mathématiques": {
+        "Algèbre linéaire": {
+          "DE": 0.6,
+          "TD": 0.2,
+          "TP": 0.2
+        },
+        "Analyse numérique": {
+          "DE": 0.6,
+          "TD": 0.2,
+          "TP": 0.2
+        },
+        "Probabilités et statistiques": {
+          "DE": 0.5,
+          "TD": 0.3,
+          "TP": 0.2
+        }
+      },
+      "UE -Physique et électronique": {
+        "Electrocinétique": {
+          "DE": 0.6,
+          "TD": 0.4
+        },
+        "Outils mathématiques pour la physique": {
+          "DE": 0.6,
+          "TD": 0.4
+        },
+        "Optique": {
+          "DE": 0.6,
+          "TD": 0.4
+        }
+      },
+      "UE -Stage L1": {
+        "Stage d'initiation": {
+          "": 2
+        }
+      }
+    }
+  }
