@@ -187,3 +187,19 @@ getSemesterUeModuleNames(3, "UE -Mathématiques");
 // faire des fonctions pour calculer les moyennes d'un module en fonction des notes et des coefficients
 // faire un bas de page pour expliquer la compensation des modules et rattrapage et conseilles 
 // faire une fonction qui crée automatiquement un tableau vide
+
+
+```
+
+<table>
+  <thead>
+    <tr>*
+      <th>UE</th>
+      <th>Module</th>
+      <th>Type</th>
+      <th>Coeff</th>
+      <th>Moyenne/Résultat</th>
+  </thead>
+<table>
+
+``` 
