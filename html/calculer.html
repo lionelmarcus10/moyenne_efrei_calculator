@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +10,7 @@
     <title>Calculer</title>
 </head>
 <body>
-    <nav class="">
+    <nav class="container_custom">
         <div class="img_box">
             <a href="index.html"><img src="../ressources/img/image.png" alt="logo" height="auto" class="our_logo" ></a>
         </div>
@@ -19,19 +19,35 @@
             <a href="calculer.html">Calculer</a href="calculer.html">
         </div>
     </nav>
-    <section>
-     
-    <table class="table" id="myTable">
-        <caption> Mes notes et crédits</caption>
+
+    <section class="container_custom">
+
         <select name="semestre" id="semestre-select" onchange="afficherTableau(this.value)">
             <option disabled selected=true value="">Veuillez choisir  le semestre</option>
             <option value=1>Semestre 1</option>
             <option value=2>Semestre 2</option>
             <option value=3>Semestre 3</option>
-            <option value=4>Semestre 4</option>  
-    
+            <option value=4>Semestre 4</option>
         </select>
-    </table>
+
+        <table class="table" >
+            <caption> Mes notes et crédits</caption>
+            <table>
+                <thead>
+                  <tr>
+                    <th>UE</th>
+                    <th>Module</th>
+                    <th>Type</th>
+                    <th>Coeff</th>
+                    <th>Moyenne/Résultat</th>
+                </thead>
+                <tbody id="myTable">
+
+                </tbody>
+            <table>
+
+
+        </table>
     <table class="table" id="table-selestre-1" style="display : none;">
         <caption>Tableau du Semestre 1</caption>
     </table>

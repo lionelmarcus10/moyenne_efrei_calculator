@@ -305,7 +305,7 @@ function getSemesterUeModuleStepsAndQuota(Semester_Number, UE_Name, Module_Name)
 
 // Fonction pour afficher le tableau selon le semestre sélectionné
 function afficherTableau(semestre) {
-  let semestreData = getSemesterByNumber(semestre);
+  
   let UE = getSemesterUeNames(semestre);
   // Récupérer l'élément du tableau par son ID
   var table = document.getElementById("myTable");
@@ -313,28 +313,43 @@ function afficherTableau(semestre) {
   // Effacer le contenu du tableau
   table.innerHTML = "";
 
-  // Créer la première ligne du tableau (en-tête)
-  var headerRow = document.createElement("tr");
-
-  var matiereHeader = document.createElement("th");
-  matiereHeader.innerHTML = "Matière";
-  headerRow.appendChild(matiereHeader);
-
-  table.appendChild(headerRow);
  
   // Parcourir les matières du semestre et ajouter les lignes correspondantes au tableau
   for (let i =0;  i < UE.length ; i++) {
-   
-    var matiereRow = document.createElement("tr");
+    let Modules = getSemesterUeModuleNames(semestre, UE[i]);
+    // creer une ligne pour l'UE avec une classe UE 
+    let UE_Row = document.createElement("tr");
+    UE_Row.classList.add("UE");
 
-    var nomMatiere = document.createElement("td");
-    nomMatiere.innerHTML = UE[i];
+    let UE_Name = document.createElement("td");
+    UE_Name.innerHTML = UE[i];
+    UE_Row.appendChild(UE_Name);
+    UE_Row.classList.add("UE-Name");
+    table.appendChild(UE_Row);
+    for(let j = 0; j < Modules.length; j++){
+      // creer une ligne pour chaque matiere de l'UE avec une classe matiereUE
 
-    matiereRow.appendChild(nomMatiere);
-
-    table.appendChild(matiereRow);
+      // creation de la ligne avec tr
+      let matiereUE_Row = document.createElement("tr");
+      // creation de la cellule avec td
+      let matiereUE_Name = document.createElement("td");
+      // ajout du nom de la matiere dans la cellule
+      matiereUE_Name.innerHTML = Modules[j];
+      // ajout de classe
+      matiereUE_Row.classList.add("UE-module");
+      matiereUE_Name.classList.add("UE-module-Name");
+      // ajout de la cellule dans la ligne
+      matiereUE_Row.appendChild(document.createElement("td"));
+      matiereUE_Row.appendChild(matiereUE_Name);
+      // refaire une boucle pour les types coeff moyenne
+      let Module_Steps = getSemesterUeModuleStepsAndQuota(semestre, UE[i], Modules[j]);
+      
+      // ajout de la ligne dans le tableau
+      table.appendChild(matiereUE_Row);
+    }
     
   }
+  
   
 }
 
