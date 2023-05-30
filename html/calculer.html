@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/pages.css">
     <link rel="stylesheet" href="../css/calculer.css">
+    <script src="../js/script.js"></script>
     <title>Calculer</title>
 </head>
 <body>
@@ -18,8 +19,36 @@
             <a href="calculer.html">Calculer</a href="calculer.html">
         </div>
     </nav>
+    <section>
+     
+    <table class="table" id="myTable">
+        <caption> Mes notes et crédits</caption>
+        <select name="semestre" id="semestre-select" onchange="afficherTableau(this.value)">
+            <option disabled selected=true value="">Veuillez choisir le semestre</option>
+            <option value=1>Semestre 1</option>
+            <option value=2>Semestre 2</option>
+            <option value=3>Semestre 3</option>
+            <option value=4>Semestre 4</option>  
+    
+        </select>
+    </table>
+    <table class="table" id="table-selestre-1" style="display : none;">
+        <caption>Tableau du Semestre 1</caption>
+    </table>
+    <table class="table" id="table-selestre-2" style="display : none;">
+        <caption>Tableau du Semestre 2</caption>
+    </table>
+    <table class="table" id="table-selestre-3" style="display : none;">
+        <caption>Tableau du Semestre 3</caption>
+    </table>
+    <table class="table" id="table-selestre-4" style="display : none;">
+        <caption>Tableau du Semestre 4</caption>
+    </table>
+    </section>
+   
     <footer>
         <p>&copy; Tous droits réservés - Projet étudiant 2023</p>
     </footer>
+   
 </body>
 </html>
