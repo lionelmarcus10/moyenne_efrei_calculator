@@ -16,8 +16,13 @@ body{
 }
 
 footer {
-    padding-block: 1rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem;
+  margin-top: auto;
 }
+
 
 footer p{
     text-align: center;
@@ -154,12 +159,21 @@ a{
     color: var(--ternary_color);
 }
 
-
+.feature > div{
+    align-self: center;
+}
 
 /* Partie média queries pour rendre le site responsive */
 
-/* partie bar de navigation */
+@media screen and (max-width: 1135px){
+    .feature{
+        gap: 5rem;
+    }
+    
+}
 
+
+/* partie bar de navigation */
 @media screen and (max-width: 1024px){
     .pages_link{
         justify-content: flex-end;
@@ -170,16 +184,27 @@ a{
         padding-inline: 0.5rem;
         padding-block: 0.5rem;
     }
-    /*.feature{
-        display: grid; 
-        grid-template-columns: repeat(2, minmax(0, 1fr)); 
-        gap: 10rem;
-        padding-top: 7rem;
-        font-weight: bold;
-    }*/
+   
 }
 
-/* reduire le padding à partir de 519px  */
+
+/* réduction de padding */
+@media screen and (max-width: 790px){
+    .feature{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .feature > div:last-child{
+        grid-column: 1 / -1;
+    }
+    .feature >*{
+        text-align: center;
+    }
+    
+}
+
+
+
+/* reduire le padding à partir de 580 px  */
 @media screen and (max-width: 580px){
     .container_custom{
         padding-inline: 10%;
@@ -187,21 +212,22 @@ a{
     .pages_link{
         justify-content: center;
     }
-    /*.feature{
-        display: grid; 
-        grid-template-columns: repeat(2, minmax(0, 1fr)); 
-        gap: 10rem;
-        padding-top: 7rem;
-        font-weight: bold;
-    }*/
+    
 } 
-
+/* réduction de padding */
 @media screen and (max-width: 450px){
     .container_custom{
         padding-inline: 2%;
     }
+    .feature{
+        padding-inline: 8%;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+
+    }
 }
 
+
+/* réduction de padding */
 @media screen and (max-width: 369px){
     .container_custom{
         padding-inline: none;
@@ -210,3 +236,7 @@ a{
     }
     
 }
+
+
+
+
