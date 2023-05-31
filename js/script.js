@@ -327,7 +327,6 @@ function afficherTableau(semestre) {
     UE_Row.classList.add("UE-Name");
     table.appendChild(UE_Row);
     for(let j = 0; j < Modules.length; j++){
-      // creer une ligne pour chaque matiere de l'UE avec une classe matiereUE
 
       // creation de la ligne avec tr
       let matiereUE_Row = document.createElement("tr");
@@ -341,11 +340,38 @@ function afficherTableau(semestre) {
       // ajout de la cellule dans la ligne
       matiereUE_Row.appendChild(document.createElement("td"));
       matiereUE_Row.appendChild(matiereUE_Name);
-      // refaire une boucle pour les types coeff moyenne
-      let Module_Steps = getSemesterUeModuleStepsAndQuota(semestre, UE[i], Modules[j]);
-      
       // ajout de la ligne dans le tableau
       table.appendChild(matiereUE_Row);
+      // refaire une boucle pour les types coeff moyenne
+      let Module_Steps = Object.keys(getSemesterUeModuleStepsAndQuota(semestre, UE[i], Modules[j]));
+      
+      for(let v=0; v < Module_Steps.length;v++){
+        // creer une ligne pour les steps avec une classe Module-Type
+        let Module_Steps_Row = document.createElement("tr");
+        Module_Steps_Row.classList.add("Module-Type");
+        console.log(Module_Steps[v]);
+        // creer une cellule pour le type avec une classe Module-Type-Name
+        let Module_Steps_Name = document.createElement("td");
+        Module_Steps_Name.innerHTML = Module_Steps[v];
+        Module_Steps_Name.classList.add("Module-Type-Name");
+        Module_Steps_Row.appendChild(document.createElement("td"));
+        Module_Steps_Row.appendChild(document.createElement("td"));
+        Module_Steps_Row.appendChild(Module_Steps_Name);
+        // mettre les deux colonnes coeff et moyenne input
+        let coeff = document.createElement("td")
+        coeff.innerHTML = getSemesterUeModuleStepsAndQuota(semestre, UE[i], Modules[j])[Module_Steps[v]];
+        Module_Steps_Row.appendChild(coeff);
+        let moyenne = document.createElement("td")
+        let input = document.createElement("input");
+        input.setAttribute("type", "number");
+        input.setAttribute("min", 0);
+        input.setAttribute("max", 20);
+        moyenne.appendChild(input);
+        Module_Steps_Row.appendChild(moyenne);
+        table.appendChild(Module_Steps_Row);
+        
+      }
+      
     }
     
   }
