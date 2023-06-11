@@ -476,11 +476,11 @@ function afficherTableau(semestre) {
       const list_notes = Array(Module_Steps.length).fill(0);
       // creer une copie qui permettra d'avoir les champs non saisi et de donner des conseils
       const list_note_copy = Array(Module_Steps.length).fill(NaN);
-
       // creer un proxy pour intercepter les modifications et agir sur les autres zones du tableau en conséquence
       const proxyListNotes = new Proxy(list_notes, {
         set(target, property, value) {
-          target[property] = value;
+          console.log(value)
+          target[property] = value[0];
           sum = sommeListe(target);
           // calcul de la moyenne des notes du module
           sum = Math.round(sum * 100) / 100
@@ -495,10 +495,11 @@ function afficherTableau(semestre) {
       // proxy pour la copie des notes afin de pouvoir faire les actions pour donner des conseils
       const proxyListNotes_copy = new Proxy(list_note_copy, {
         set(target, property, value) {
+          console.log(value,"--")
           if (value == ""){
             target[property] = NaN;
           }else{ 
-            target[property] = value;
+            target[property] = value[0];
           }
 
           let somme = 0;
@@ -510,12 +511,40 @@ function afficherTableau(semestre) {
           // repertorier le nombre de NaN dans la liste
           const countNaN = target.filter(element => isNaN(element)).length;
 
+          let index = undefined;
           
           if (countNaN == 1){
-            let index = target.indexOf(NaN);
-            if(somme -10 < 0 ){
-              console.log("il faut avoir au moins 10 pour avoir la moyenne", somme, index, 10-somme);
+            let index = undefined;
+            for (let i = 0; i < target.length; i++) {
+              if (isNaN(target[i])) {
+                index = i;
+                break;
+              }
             }
+
+            if(somme -10 < 0 ){
+              // selectionner le span et l'afficher 
+              let ValueOfSpan = Math.round(((10 - somme)/ getSemesterUeModuleStepsAndQuota(semestre, UE[i], Modules[j])[Module_Steps[index]])*100) / 100;
+              console.log(Modules[j], Module_Steps[index], index)
+              
+              value1 = Object.keys(getSemesterUeModuleStepsAndQuota(semestre, UE[i], Modules[j]))[index]
+              value2 = (getSemesterUeModuleStepsAndQuota(semestre, UE[i], Modules[j]))[`${Object.keys(getSemesterUeModuleStepsAndQuota(semestre, UE[i], Modules[j]))[index]}`]
+              
+              
+              //span_select = document.querySelectorAll(".manquant")
+             
+              //const elements = document.querySelectorAll('.manquant');
+              //const elementRecherche = document.querySelector(`.${value[1]}`);
+              overlay = document.querySelector("#message-overlay")
+              overlay.querySelector("p").innerText = (`il vous faut une note minimum de ${ValueOfSpan} dans l'évaluation ${value1} pour valider le module ${Modules[j]} dans la matière ${UE[i]}`)
+              overlay.style.display = "block"
+              
+              //span_select[index].innerHTML = ValueOfSpan;
+
+              //console.log("il faut avoir au moins 10 pour avoir la moyenne", somme, index, 10-somme);
+            }
+            // enlever le span quand les 3 champs sont remplis
+            // mettre un émoji ou commentaire de non validé si la moyenne est inférieure à 10 pour un module
           }
 
 
@@ -540,6 +569,8 @@ function afficherTableau(semestre) {
         coeff.innerHTML = getSemesterUeModuleStepsAndQuota(semestre, UE[i], Modules[j])[Module_Steps[v]];
         Module_Steps_Row.appendChild(coeff);
         let moyenne = document.createElement("td")
+        let ale = genererNomClasseAleatoire()
+        moyenne.classList.add(ale);
         let input = document.createElement("input");
         input.setAttribute("type", "number");
         input.setAttribute("min", 0);
@@ -551,7 +582,7 @@ function afficherTableau(semestre) {
             alert("Veuillez entrer une note entre 0 et 20");
             input.value = "";
           }else{
-            proxyListNotes[v] = (input.value * coeff.textContent);
+            proxyListNotes[v] = [(input.value * coeff.textContent),ale];
           }
         
         } )
@@ -578,3 +609,15 @@ function afficherTableau(semestre) {
   
 }
 
+function genererNomClasseAleatoire() {
+  const caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const longueur = 6; // Longueur souhaitée du nom de classe
+  let nomClasse = "";
+
+  for (let i = 0; i < longueur; i++) {
+    const index = Math.floor(Math.random() * caracteres.length);
+    nomClasse += caracteres.charAt(index);
+  }
+
+  return nomClasse;
+}
