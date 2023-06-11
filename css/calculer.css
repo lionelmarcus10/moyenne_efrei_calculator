@@ -3,30 +3,68 @@
     width: 100%;
     text-align: center;
     border-spacing: 25px;
-    background-color: gray;
-    
-
-}
-
-.table th {
-    padding: 25px;
     text-align: center;
-    border-bottom: 1px solid black;
-    background-color: gray;
+    background-color:white; 
+    margin-left: auto;
+    margin-right: auto;
+    border : blue;
+    box-shadow: blue;
+   
 }
 
+
+thead{
+    border: 1px solid black;
+}
+
+
+th {
+    padding-inline: 10px;
+    border: 1px solid #F0F0F1;
+    text-align: center;
+}
+
+.caption{
+    padding: auto;
+    text-align: center;
+    color: red;
+}
 
 .h1{
- text-align: center;
- color: blue;
+    text-align: center;
+    color: blue;
 }
 
-footer{
-    position: fixed;
-    bottom: none;
-    width: 100%;
-}
+
 section{
     margin: 15PX;
     text-align: center;
 }
+
+section{
+    margin: 15PX;
+    text-align: center;
+}
+
+tr{
+    border: solid 1px#F0F0F1;
+}
+
+
+@media screen and (max-width: 800px) {
+    th:nth-child(1) {
+      content: "UE";
+    }
+    th:nth-child(2) {
+      content: "Module";
+    }
+    th:nth-child(3) {
+      content: "T";
+    }
+    th:nth-child(4) {
+      content: "C";
+    }
+    th:nth-child(5) {
+      content: "M/R";
+    }
+  }

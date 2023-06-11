@@ -12,6 +12,7 @@
 body{
     margin: 0;
     padding: 0;
+    padding-bottom: 5%;
     font-family: "Arial"; 
 }
 
@@ -189,8 +190,8 @@ a{
 }
 
 
-/* réduction de padding */
-@media screen and (max-width: 790px){
+/* partie bar de navigation */
+@media screen and (max-width: 1031px){
     .feature{
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -199,6 +200,14 @@ a{
     }
     .feature >*{
         text-align: center;
+    }
+   
+}
+
+/* réduction de padding */
+@media screen and (max-width: 790px){
+    .feature{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     
 }

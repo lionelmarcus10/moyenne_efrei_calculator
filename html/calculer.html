@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/pages.css">
     <link rel="stylesheet" href="../css/calculer.css">
-    <script src="../js/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js" integrity="sha512-mlz/Fs1VtBou2TrUkGzX4VoGvybkD9nkeXWJm3rle0DPHssYYx4j+8kIS15T78ttGfmOjH0lLaBXGcShaVkdkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chroma-js@2.1.1/chroma.min.js"></script>
+
     <title>Calculer</title>
 </head>
 <body>
@@ -33,36 +34,30 @@
 
         <table class="table" >
             <caption> Mes notes et crédits</caption>
-            <table>
+
                 <thead>
                   <tr>
-                    <th>UE</th>
-                    <th>Module</th>
-                    <th>Type</th>
-                    <th>Coeff</th>
-                    <th>Moyenne/Résultat</th>
+                    <th class="">UE</th>
+                    <th class="">Module</th>
+                    <th class="">Type</th>
+                    <th class="">Coeff</th>
+                    <th class="">Moyenne/Résultat</th>
+                   </tr>
                 </thead>
+                
                 <tbody id="myTable">
 
                 </tbody>
-            <table>
+            
 
 
         </table>
-    <table class="table" id="table-selestre-1" style="display : none;">
-        <caption>Tableau du Semestre 1</caption>
-    </table>
-    <table class="table" id="table-selestre-2" style="display : none;">
-        <caption>Tableau du Semestre 2</caption>
-    </table>
-    <table class="table" id="table-selestre-3" style="display : none;">
-        <caption>Tableau du Semestre 3</caption>
-    </table>
-    <table class="table" id="table-selestre-4" style="display : none;">
-        <caption>Tableau du Semestre 4</caption>
-    </table>
     </section>
-   
+
+    <section class="container_custom">
+        <canvas id="RadarChart"></canvas>
+    </section>
+    <script src="../js/script.js"></script>
     <footer>
         <p>&copy; Tous droits réservés - Projet étudiant 2023</p>
     </footer>

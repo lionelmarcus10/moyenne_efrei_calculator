@@ -17,7 +17,7 @@ let Efrei_Modules = {
         "TD20": 0.2
       },
       "Learning XP": {
-        "NoTE": 1
+        "NOTE": 1
       }
     },
     "UE - Informatique générale": {
@@ -276,27 +276,71 @@ let Efrei_Modules = {
 };
 
 
+// Récupérer le contexte du canvas
+var RadarGraph = document.getElementById('RadarChart').getContext('2d');
+
+// creer un graphique de type radar vide
+var mychart2 = new Chart(RadarGraph, {
+    type: 'radar',
+    data: {
+        labels: ["UE 1", "UE 2", "UE 3", "UE 4"],
+        datasets: [{
+          label: 'Un graphique de mes résultats/performances en temps réel',
+          data: [],
+          fill: true,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgb(54, 162, 235)',
+          pointBackgroundColor: 'rgb(54, 162, 235)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgb(54, 162, 235)'
+        }]
+      },
+    // Configuration des options du graphique avec un interval de 0 à 20 à pas de 5 
+    options: {
+      scales: {
+        r: {
+          min: 0,  
+          max: 20,
+          stepSize: 5 
+        }
+      }
+    }
+  })
+
+
+
+// sommer une liste de nombres
+function sommeListe(liste) {
+  let somme = 0;
+  for (let i = 0; i < liste.length; i++) {
+    somme += liste[i];
+  }
+  return somme;
+}
+
+// avoir les données d'un semestre en fonction de son numéro
 function getSemesterByNumber(number){
   return  Efrei_Modules[`semestre ${number}`];
 }
 
+// avoir le nom de tous les UE d'un semestre en fonction de son numéro
 function getSemesterUeNames(Semester_Number){
   let UE = Object.keys(getSemesterByNumber(Semester_Number));
   
   return UE;
 }
 
-
+// avoir le nom de tous les modules d'un UE en fonction du nom de l'UE et du numéro du semestre
 function getSemesterUeModuleNames(Semester_Number, UE_Name){
   let Modules = Object.keys(Efrei_Modules[`semestre ${Semester_Number}`][UE_Name]);
   
   return Modules;
 }
 
+// avoir les differents types d'activités d'un module ainsi que leur coefficient en fonction du nom de l'UE, du nom du module et du numéro du semestre
 function getSemesterUeModuleStepsAndQuota(Semester_Number, UE_Name, Module_Name){
   let Module = Efrei_Modules[`semestre ${Semester_Number}`][UE_Name][Module_Name];
-  console.log(Module)
-  // extraire les étapes ( de ce ctd... ) et leur coefficient dans un tableau double [[étape, coeff], [étape, coeff]...]]  avec Object.entries()
   return Module;
 }
 
@@ -312,8 +356,20 @@ function afficherTableau(semestre) {
 
   // Effacer le contenu du tableau
   table.innerHTML = "";
+  // changger le label du graphique radar avec les noms des UE du semestre
+  mychart2.data.labels = UE
+  // creer une liste pour stocker les moyennes des UE du semestre
+  let UE_list = Array(UE.length).fill(0);
+  // changer les données du graphique radar avec les moyennes des UE du semestre
+  mychart2.data.datasets[0].data = UE_list;
+  // mettre à jour le graphique radar
+  mychart2.update()
+  // creer une ligne pour la moyenne générale avec une classe General
+  last_line = document.createElement("tr");
+  last_line.classList.add("General");
+  // creer 2 colonnes pour la moyenne générale pour le texte et la valeur de la moyenne générale
+  last_line.innerHTML = "<td colspan='4'> Moyenne générale </td><td id='General-mean'>0</td>";
 
- 
   // Parcourir les matières du semestre et ajouter les lignes correspondantes au tableau
   for (let i =0;  i < UE.length ; i++) {
     let Modules = getSemesterUeModuleNames(semestre, UE[i]);
@@ -322,10 +378,42 @@ function afficherTableau(semestre) {
     UE_Row.classList.add("UE");
 
     let UE_Name = document.createElement("td");
+    let UE_moyenne = document.createElement("td");
+    UE_moyenne.classList.add("UE-moyenne");
     UE_Name.innerHTML = UE[i];
     UE_Row.appendChild(UE_Name);
     UE_Row.classList.add("UE-Name");
+    UE_Name.colSpan = 4;
+    UE_Name.style.textAlign = "left";
+    UE_Row.appendChild(UE_moyenne);
+    // creer une liste pour stocker les moyennes des modules de l'UE
+    let Modules_list = Array(Modules.length).fill(0);
+
+    UE_moyenne.innerHTML = 0;
     table.appendChild(UE_Row);
+
+    // creer un proxy pour mettre à jour la moyenne de l'UE à chaque fois qu'on met à jour la moyenne d'un module ou une note    
+    const proxyModules_list = new Proxy(Modules_list, {
+      set(target, property, value) {
+        target[property] = value;
+        sum = sommeListe(target);
+        sum = Math.round(sum * 100) / 100
+        target[-1] = sum/Modules.length;
+        UE_moyenne.innerHTML = target[-1];
+        UE_list[i] = target[-1];
+        // calculer la moyenne générale , la mettre dans une variable 
+        // coeffcient_final sommeListe(coefficient)
+        //let General_mean = / coefficient_final;
+        // utiliser la variable
+        //document.getElementById("General-mean").innerHTML = General_mean;
+        mychart2.data.datasets[0].data = UE_list;
+        mychart2.update()
+        return true;
+      },
+    });
+
+    
+
     for(let j = 0; j < Modules.length; j++){
 
       // creation de la ligne avec tr
@@ -334,22 +422,45 @@ function afficherTableau(semestre) {
       let matiereUE_Name = document.createElement("td");
       // ajout du nom de la matiere dans la cellule
       matiereUE_Name.innerHTML = Modules[j];
-      // ajout de classe
+      // ajout des classes
       matiereUE_Row.classList.add("UE-module");
       matiereUE_Name.classList.add("UE-module-Name");
-      // ajout de la cellule dans la ligne
+      // ajout du colspan pour que la cellule prenne 2 colonnes
+      matiereUE_Name.colSpan = 2
+      // alignement du texte au centre
+      matiereUE_Name.style.textAlign = "center";
+      // ajout de cellules dans la ligne
       matiereUE_Row.appendChild(document.createElement("td"));
       matiereUE_Row.appendChild(matiereUE_Name);
+      matiereUE_Row.appendChild(document.createElement("td"));
+      let module_moy = document.createElement("td")
+      matiereUE_Row.appendChild(module_moy);
       // ajout de la ligne dans le tableau
       table.appendChild(matiereUE_Row);
+
       // refaire une boucle pour les types coeff moyenne
       let Module_Steps = Object.keys(getSemesterUeModuleStepsAndQuota(semestre, UE[i], Modules[j]));
-      
+      // creer une liste pour stocker les notes de chaque module
+      const list_notes = Array(Module_Steps.length).fill(0);
+      // creer un proxy pour intercepter les modifications et agir sur les autres zones du tableau en conséquence
+      const proxyListNotes = new Proxy(list_notes, {
+        set(target, property, value) {
+          target[property] = value;
+          sum = sommeListe(target);
+          // calcul de la moyenne des notes du module
+          sum = Math.round(sum * 100) / 100
+          target[-1] = sum;
+          module_moy.innerHTML = sum;
+          proxyModules_list[j] = sum;
+          return true;
+        },
+      });
+
       for(let v=0; v < Module_Steps.length;v++){
         // creer une ligne pour les steps avec une classe Module-Type
         let Module_Steps_Row = document.createElement("tr");
         Module_Steps_Row.classList.add("Module-Type");
-        console.log(Module_Steps[v]);
+        
         // creer une cellule pour le type avec une classe Module-Type-Name
         let Module_Steps_Name = document.createElement("td");
         Module_Steps_Name.innerHTML = Module_Steps[v];
@@ -366,6 +477,9 @@ function afficherTableau(semestre) {
         input.setAttribute("type", "number");
         input.setAttribute("min", 0);
         input.setAttribute("max", 20);
+
+        // ajouter un event listener pour mettre à jour la liste des notes du module à chaque changement de valeur
+        input.addEventListener("input", ()=> {proxyListNotes[v] = (input.value * coeff.textContent);} )
         moyenne.appendChild(input);
         Module_Steps_Row.appendChild(moyenne);
         table.appendChild(Module_Steps_Row);
@@ -375,6 +489,8 @@ function afficherTableau(semestre) {
     }
     
   }
+  // ajouter la ligne de moyenne générale à la fin du tableau
+  table.appendChild(last_line);
   
   
 }
