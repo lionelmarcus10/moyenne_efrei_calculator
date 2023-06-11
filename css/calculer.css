@@ -1,70 +1,125 @@
 .table {
-    border-collapse: collapse;
-    width: 100%;
-    text-align: center;
-    border-spacing: 25px;
-    text-align: center;
-    background-color:white; 
-    margin-left: auto;
-    margin-right: auto;
-    border : blue;
-    box-shadow: blue;
-   
+  
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+  border-spacing: 15px;
+  text-align: center;
+  background-color: white; 
+  margin-left: auto;
+  margin-right: auto;
+  font-style: italic;
+  box-shadow: 0 15px 60px rgba(4, 46, 255, 0.2); /* Définir l'ombre */
+  border-radius: 13px; /* Définir la bordure arrondie */
+  padding: 50px; /* Ajouter un espacement intérieur pour laisser de la place à l'ombre */
+ 
 }
-
+.table tfoot td {
+  border-top-left-radius: 50px ;
+  border-top-right-radius: 50px;
+  border-bottom: none ;
+}
+.tabel tfoot  td:first-child{
+  border-left: none;
+}
+.tabel tfoot  td:last-child{
+  border-left: none;
+}
+tr {
+  border: 1px solid rgb(176, 193, 236); 
+  border-color: rgb(158, 176, 255);
+  
+}
 
 thead{
-    border: 1px solid black;
+  padding: 50px;
+  padding-inline: 10px;
+  border-radius: 50px;
 }
 
-
 th {
-    padding-inline: 10px;
-    border: 1px solid #F0F0F1;
-    text-align: center;
+  padding: 25px;
+  text-align: center;
+  border-radius: 2%;
 }
 
 .caption{
-    padding: auto;
-    text-align: center;
-    color: red;
+  padding: auto;
+  text-align: center;
+  background: fixed;
+  background: red;
 }
 
 .h1{
-    text-align: center;
-    color: blue;
+  text-align: center;
+  color: blue;
 }
 
+footer{
+  position: fixed;
+  bottom: none;
+  width: 100%;
+}
 
 section{
-    margin: 15PX;
-    text-align: center;
+  margin: 15PX;
+  text-align: center;
 }
 
-section{
-    margin: 15PX;
-    text-align: center;
+body{
+  background-color: rgb(255, 255, 255);
+}  
+
+
+#my1stcaption{
+
+  font-size: 28px;
+  font-weight: bold;
+  padding-block: 20px;
+  color: var(--main_color);
+  text-emphasis: none;
+  font-style: italic;
+  text-shadow: red ;
 }
 
-tr{
-    border: solid 1px#F0F0F1;
+
+#semestre-select{
+  color: blueviolet;
 }
 
+#tr1{
+  color: blueviolet;
+  border : none; 
 
-@media screen and (max-width: 800px) {
-    th:nth-child(1) {
-      content: "UE";
-    }
-    th:nth-child(2) {
-      content: "Module";
-    }
-    th:nth-child(3) {
-      content: "T";
-    }
-    th:nth-child(4) {
-      content: "C";
-    }
-    th:nth-child(5) {
-      content: "M/R";
-    }
-  }
+}
+#message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+  
+}
+
+#message-box {
+  background-color: rgb(217, 210, 239);
+  padding: 20px;
+  text-align: center;
+  box-shadow: 10 10px 60px rgba(2, 5, 107, 0.2); /* Définir l'ombre */
+  border-radius: 10px; /* Définir la bordure arrondie */
+  padding: 20px; /* Ajouter un espacement intérieur pour laisser de la place à l'ombre */
+
+}
+
+#ok-btn {       
+  margin-top: 10px;
+}
+.UE-Name{
+  background-color: rgb(156, 157, 236);
+  padding: 15%;
+  
+}

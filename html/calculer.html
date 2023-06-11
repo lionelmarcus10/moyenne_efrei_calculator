@@ -22,6 +22,13 @@
         </div>
     </nav>
 
+    <div id="message-overlay">
+        <div id="message-box">
+          <p>Veuillez saisir vos notes dans les cases du tableau.</p>
+          <button id="ok-btn"> OK </button>
+        </div>
+    </div>
+    
     <section class="container_custom">
 
         <select name="semestre" id="semestre-select" onchange="afficherTableau(this.value)">
@@ -33,10 +40,10 @@
         </select>
 
         <table class="table" >
-            <caption> Mes notes et crédits</caption>
+            <caption id="my1stcaption"> Mes notes et crédits</caption>
 
                 <thead>
-                  <tr>
+                  <tr id="tr1">
                     <th class="">UE</th>
                     <th class="">Module</th>
                     <th class="">Type</th>
@@ -44,7 +51,7 @@
                     <th class="">Moyenne/Résultat</th>
                    </tr>
                 </thead>
-                
+
                 <tbody id="myTable">
 
                 </tbody>

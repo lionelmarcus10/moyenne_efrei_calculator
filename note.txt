@@ -1,14 +1,4 @@
-
-- Générer 1 Graphes
-    - Texte pour dire dans quelle tranche se situe l'étudiant par rapport aux autres
-
-- Afficher le texte pour dire si toutes les notes sont saisi
-    - module à rattraper ou compenser
-    - faire un tableau 2D qui contient les notes des modules des UE
-    - faire un tableau 3D pour pouvoir savoir combien avoir pour compenser
-
 -  tableau + acceuil responsive  + diminution de la zone de text => copier le truc de bereket 
-
 
 - remplacer les textes
 - faire un bouton pour revenir à l'acceuil

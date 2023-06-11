@@ -1,3 +1,14 @@
+let coefficient = {
+  "semestre 4": 
+      [4,8,7,7,2,2],
+  "semestre 3": 
+     [6,8,8,8],
+  "semestre 2": 
+    [5,7,7,7,2,2],
+  "semestre 1": 
+    [6,8,8,8]
+  
+}
 let Efrei_Modules = {
   "semestre 4": {
     "Formation générale": {
@@ -275,6 +286,21 @@ let Efrei_Modules = {
   }
 };
 
+// selectionner le popup custom
+var messageOverlay = document.getElementById("message-overlay");
+
+// Sélectionnez le bouton "OK"
+document.getElementById("ok-btn").addEventListener("click", cacherMessage); ;
+
+
+// Fonction pour cacher le message d'overlay et révéler le contenu de la page
+function cacherMessage() {
+   messageOverlay.style.display = "none";
+   
+  // Révélez le reste du contenu de votre site web ici
+}
+
+
 
 // Récupérer le contexte du canvas
 var RadarGraph = document.getElementById('RadarChart').getContext('2d');
@@ -401,11 +427,17 @@ function afficherTableau(semestre) {
         target[-1] = sum/Modules.length;
         UE_moyenne.innerHTML = target[-1];
         UE_list[i] = target[-1];
-        // calculer la moyenne générale , la mettre dans une variable 
-        // coeffcient_final sommeListe(coefficient)
-        //let General_mean = / coefficient_final;
-        // utiliser la variable
-        //document.getElementById("General-mean").innerHTML = General_mean;
+        // recuperer la valeur des coefficients de chaque UE 
+        semester_coeff = coefficient[`semestre ${semestre}`]
+        // multiplier chaque coefficient par la moyenne de l'UE correspondante
+        let general_list = UE_list.map((x, index) => x * semester_coeff[index]);
+        // calculer la moyenne générale
+        let coefficient_final = sommeListe(semester_coeff);
+        let general_list_final = sommeListe(general_list);
+        let General_mean = general_list_final/ coefficient_final;
+        // la mettre à jour dans le tableau 
+        document.getElementById("General-mean").innerHTML = General_mean;
+
         mychart2.data.datasets[0].data = UE_list;
         mychart2.update()
         return true;
@@ -442,6 +474,9 @@ function afficherTableau(semestre) {
       let Module_Steps = Object.keys(getSemesterUeModuleStepsAndQuota(semestre, UE[i], Modules[j]));
       // creer une liste pour stocker les notes de chaque module
       const list_notes = Array(Module_Steps.length).fill(0);
+      // creer une copie qui permettra d'avoir les champs non saisi et de donner des conseils
+      const list_note_copy = Array(Module_Steps.length).fill(NaN);
+
       // creer un proxy pour intercepter les modifications et agir sur les autres zones du tableau en conséquence
       const proxyListNotes = new Proxy(list_notes, {
         set(target, property, value) {
@@ -452,6 +487,38 @@ function afficherTableau(semestre) {
           target[-1] = sum;
           module_moy.innerHTML = sum;
           proxyModules_list[j] = sum;
+          proxyListNotes_copy[property] = value;
+          return true;
+        },
+      });
+      
+      // proxy pour la copie des notes afin de pouvoir faire les actions pour donner des conseils
+      const proxyListNotes_copy = new Proxy(list_note_copy, {
+        set(target, property, value) {
+          if (value == ""){
+            target[property] = NaN;
+          }else{ 
+            target[property] = value;
+          }
+
+          let somme = 0;
+          for( NotNan of target){
+            if(!isNaN(NotNan)){
+              somme += NotNan;
+          }
+        }
+          // repertorier le nombre de NaN dans la liste
+          const countNaN = target.filter(element => isNaN(element)).length;
+
+          
+          if (countNaN == 1){
+            let index = target.indexOf(NaN);
+            if(somme -10 < 0 ){
+              console.log("il faut avoir au moins 10 pour avoir la moyenne", somme, index, 10-somme);
+            }
+          }
+
+
           return true;
         },
       });
@@ -479,11 +546,27 @@ function afficherTableau(semestre) {
         input.setAttribute("max", 20);
 
         // ajouter un event listener pour mettre à jour la liste des notes du module à chaque changement de valeur
-        input.addEventListener("input", ()=> {proxyListNotes[v] = (input.value * coeff.textContent);} )
+        input.addEventListener("input", ()=> {
+          if(input.value > 20 || input.value < 0){
+            alert("Veuillez entrer une note entre 0 et 20");
+            input.value = "";
+          }else{
+            proxyListNotes[v] = (input.value * coeff.textContent);
+          }
+        
+        } )
+
+        // ajouter un span pour afficher un la note manquante pour valider le module
+        let span = document.createElement("span")
+        span.classList.add("manquant");
+        span.style.color = "red";
+        span.style.fontWeight = "bold";
+        span.style.paddingLeft = "10px";
+
         moyenne.appendChild(input);
+        moyenne.appendChild(span);
         Module_Steps_Row.appendChild(moyenne);
         table.appendChild(Module_Steps_Row);
-        
       }
       
     }
