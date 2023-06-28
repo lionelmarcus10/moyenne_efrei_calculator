@@ -89,7 +89,7 @@ let Efrei_Modules = {
     },
     "UE -Stage L2": {
       "Stage commercial": {
-        "": 2
+        "": 1
       }
     }
   },
@@ -429,11 +429,15 @@ function afficherTableau(semestre) {
         UE_list[i] = target[-1];
         // recuperer la valeur des coefficients de chaque UE 
         semester_coeff = coefficient[`semestre ${semestre}`]
+
         // multiplier chaque coefficient par la moyenne de l'UE correspondante
         let general_list = UE_list.map((x, index) => x * semester_coeff[index]);
+        
         // calculer la moyenne générale
         let coefficient_final = sommeListe(semester_coeff);
+        
         let general_list_final = sommeListe(general_list);
+
         let General_mean = general_list_final/ coefficient_final;
         // la mettre à jour dans le tableau 
         document.getElementById("General-mean").innerHTML = General_mean;
@@ -479,7 +483,7 @@ function afficherTableau(semestre) {
       // creer un proxy pour intercepter les modifications et agir sur les autres zones du tableau en conséquence
       const proxyListNotes = new Proxy(list_notes, {
         set(target, property, value) {
-          console.log(value)
+          
           target[property] = value[0];
           sum = sommeListe(target);
           // calcul de la moyenne des notes du module
@@ -495,7 +499,7 @@ function afficherTableau(semestre) {
       // proxy pour la copie des notes afin de pouvoir faire les actions pour donner des conseils
       const proxyListNotes_copy = new Proxy(list_note_copy, {
         set(target, property, value) {
-          console.log(value,"--")
+          
           if (value == ""){
             target[property] = NaN;
           }else{ 
@@ -525,7 +529,7 @@ function afficherTableau(semestre) {
             if(somme -10 < 0 ){
               // selectionner le span et l'afficher 
               let ValueOfSpan = Math.round(((10 - somme)/ getSemesterUeModuleStepsAndQuota(semestre, UE[i], Modules[j])[Module_Steps[index]])*100) / 100;
-              console.log(Modules[j], Module_Steps[index], index)
+              console.log(Modules[j], Module_Steps[index], ValueOfSpan)
               
               value1 = Object.keys(getSemesterUeModuleStepsAndQuota(semestre, UE[i], Modules[j]))[index]
               value2 = (getSemesterUeModuleStepsAndQuota(semestre, UE[i], Modules[j]))[`${Object.keys(getSemesterUeModuleStepsAndQuota(semestre, UE[i], Modules[j]))[index]}`]
@@ -541,7 +545,7 @@ function afficherTableau(semestre) {
               
               //span_select[index].innerHTML = ValueOfSpan;
 
-              //console.log("il faut avoir au moins 10 pour avoir la moyenne", somme, index, 10-somme);
+              
             }
             // enlever le span quand les 3 champs sont remplis
             // mettre un émoji ou commentaire de non validé si la moyenne est inférieure à 10 pour un module
@@ -621,3 +625,4 @@ function genererNomClasseAleatoire() {
 
   return nomClasse;
 }
+
